@@ -27,7 +27,7 @@ jobs:
       - name: Build Docker image web
         uses: docker/build-push-action@v2
         with:
-          context: ./web
+          context: ./Phase-2-Intermediate/web
           push: false
           tags: phase-2-intermediate_web:latest
           file: Dockerfile
@@ -35,13 +35,14 @@ jobs:
       - name: Build Docker image backend
         uses: docker/build-push-action@v2
         with:
-          context: ./backend
+          context: ./Phase-2-Intermediate/backend
           push: false
           tags: phase-2-intermediate_backend:latest
           file: Dockerfile
 
       - name: Start services
         run: |
+          cd Phase-2-Intermediate
           docker-compose up -d
           sleep 10
 
