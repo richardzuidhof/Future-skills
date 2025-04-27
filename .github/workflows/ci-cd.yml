@@ -18,29 +18,29 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      - name: Lint docker-compose.yml and cd
+        run: |
+          cd Phase-2-Intermediate
+          docker-compose -f docker-compose.yml config
+
       - name: Build Docker image web
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./web
           push: false
-          tags: phase2/web:latest
-          file: Phase-2-Intermediate/web/Dockerfile
+          tags: phase-2-intermediate_web:latest
+          file: Dockerfile
 
       - name: Build Docker image backend
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./backend
           push: false
-          tags: phase2/backend:latest
-          file: Phase-2-Intermediate/backend/Dockerfile
-
-      - name: Lint docker-compose.yml
-        run: |
-          docker-compose -f Phase-2-Intermediate/docker-compose.yml config
+          tags: phase-2-intermediate_backend:latest
+          file: Dockerfile
 
       - name: Start services
         run: |
-          cd Phase-2-Intermediate
           docker-compose up -d
           sleep 10
 
