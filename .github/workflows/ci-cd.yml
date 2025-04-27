@@ -20,6 +20,7 @@ jobs:
 
       - name: Lint docker-compose.yml and cd
         run: |
+          sudo apt-get install -y docker-compose
           cd Phase-2-Intermediate
           docker-compose -f docker-compose.yml config
 
