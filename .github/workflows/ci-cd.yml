@@ -53,4 +53,5 @@ jobs:
 
       - name: Stop services
         run: |
+          cd Phase-2-Intermediate
           docker-compose down
