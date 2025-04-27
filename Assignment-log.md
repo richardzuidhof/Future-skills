@@ -48,3 +48,5 @@ Content-Security-Policy: default-src 'self'
 ```
 
 I think the requirement to "Ensure no other containers are accessible directly from the host." is sufficiently covered by the custom bridge network and not exposing the web container by port forwarding.
+
+Used "docker exec -it" and "curl" to troubleshoot an initial 404 error. chmod and chown did not seem very relevant for this assignment. Used "docker network ls" to show the different networks.
