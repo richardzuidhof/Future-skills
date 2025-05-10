@@ -50,3 +50,13 @@ Content-Security-Policy: default-src 'self'
 I think the requirement to "Ensure no other containers are accessible directly from the host." is sufficiently covered by the custom bridge network and not exposing the web container by port forwarding.
 
 Used "docker exec -it" and "curl" to troubleshoot an initial 404 error. chmod and chown did not seem very relevant for this assignment. Used "docker network ls" to show the different networks.
+
+Phase 1 took about 1,5 hours to finish.
+
+## Phase 2.
+
+For Phase 2 I had to rework some of Phase 1. My choice to use subdirectories for each phase caused 30 minutes of trial and error before the Github actions worked as expected.
+Time for Phase 2 was 2 hours.
+
+## Phase 3.
+
