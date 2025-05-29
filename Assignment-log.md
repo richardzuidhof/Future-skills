@@ -60,3 +60,58 @@ Time for Phase 2 was 2 hours.
 
 ## Phase 3.
 
+### 3.1
+Generated self-signed certs
+```openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout certs/key.pem \
+  -out certs/cert.pem \
+  -subj "/CN=futskill.com"
+```
+
+```rzuidhof@WINKPN-F0G8XL3:(main)~/mcp/Future-skills/Phase-3-Expert$ curl -ik https://localhost:443
+HTTP/1.1 200 OK
+Server: nginx/1.27.5
+Date: Thu, 29 May 2025 17:46:45 GMT
+Content-Type: text/html
+Content-Length: 350
+Connection: keep-alive
+Last-Modified: Sun, 27 Apr 2025 10:18:30 GMT
+ETag: "680e0476-15e"
+Accept-Ranges: bytes
+X-Frame-Options: DENY
+Content-Security-Policy: default-src 'self'
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Phase Web Server</title>
+</head>
+<body>
+    <h1>Hello from the Expert Phase Web Server via Reverse Proxy!</h1>
+    <p>This page is served through the NGINX reverse proxy.</p>
+</body>
+</html>
+
+
+rzuidhof@WINKPN-F0G8XL3:(main)~/mcp/Future-skills/Phase-3-Expert$ curl -ik http://localhost
+HTTP/1.1 301 Moved Permanently
+Server: nginx/1.27.5
+Date: Thu, 29 May 2025 17:48:01 GMT
+Content-Type: text/html
+Content-Length: 169
+Connection: keep-alive
+Location: https://localhost/
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.27.5</center>
+</body>
+</html>
+```
+
+### 3.2
+
