@@ -189,7 +189,8 @@ services:
     volumes:
       - certs:/usr/share/logstash/certs
       - logstashdata01:/usr/share/logstash/data
-      - "./logs/logstash_ingest_data/:/usr/share/logstash/ingest_data/"
+      # Mount Docker container logs so Logstash can tail backend logs
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
       - "./logs/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
     environment:
       - xpack.monitoring.enabled=false
