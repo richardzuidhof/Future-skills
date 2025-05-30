@@ -136,7 +136,7 @@ Separate tests to run after the platform has been launched:
 
 ### 3.5
 
-Expanded linting since Phase 2. Redeploy on push I would create with a local cron job since I do not have a runner configured or remote access to my WSL. Fixed the tagging and pushing of images to ghcr.io though.
+Redeploy on push I would create with a local cron job since I do not have a runner configured or remote access to my WSL. Fixed the tagging and pushing of images to ghcr.io though.
 
 ### 3.6
 
