@@ -14,7 +14,6 @@ volumes:
  logstashdata01:
    driver: local
 
-
 services:
   web:
     build:

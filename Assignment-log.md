@@ -61,6 +61,7 @@ Time for Phase 2 was 2 hours.
 ## Phase 3.
 
 ### 3.1
+
 Generated self-signed certs
 ```openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout certs/key.pem \
@@ -114,4 +115,12 @@ Location: https://localhost/
 ```
 
 ### 3.2
+
+Used example from elastic.co site to add ELK containers. At first logs did not show up because the default Discover index pattern did not match logstash-*, indeed logstash is being replaced by filebeat. Naming the index log-backend did not help, for some reason the index was not auto-created. So finally named it filebeat-backend.
+
+### 3.3
+
+Alpine based backed image was 60 MB smaller than default Python image
+phase-3-expert-backend                          latest             b864ffe0e76d   4 minutes ago   103MB
+<none>                                          <none>             e58e111e61d3   2 weeks ago     161MB
 

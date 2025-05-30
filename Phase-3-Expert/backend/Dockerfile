@@ -1,13 +1,14 @@
-FROM python:3.13-slim-bookworm
+FROM alpine:latest
 
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get upgrade --assume-yes \
- && apt install curl -y
+# update to show best practices
+RUN apk update && apk add --no-cache curl python3 py3-pip
 
 WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --break-system-packages --upgrade pip setuptools
+RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
 COPY app.py .
 
