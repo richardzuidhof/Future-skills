@@ -1,5 +1,4 @@
 name: CI/CD Pipeline - Phase 3
-
 on:
   push:
     branches:
@@ -7,11 +6,18 @@ on:
     paths:
       - 'Phase-3-Expert/**'
 
+env:
+  VAR_GH_REPO: ${{ github.repository }}
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Convert repo to lowercase
+        id: convertrepo2lowercase
+        run: INPUT=${{ env.VAR_GH_REPO }}; echo "VAR_GH_REPO_LC=${INPUT,,}">>${GITHUB_OUTPUT}
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -36,7 +42,7 @@ jobs:
         with:
           context: ./Phase-3-Expert/web
           push: true
-          tags: ghcr.io/${{ github.repository }}/phase-3-expert_web:latest
+          tags: ghcr.io/${{steps.convertrepo2lowercase.outputs.VAR_GH_REPO_LC}}/phase-3-expert_web:latest
           file: ./Phase-3-Expert/web/Dockerfile
 
       - name: Build Docker image backend
@@ -44,7 +50,7 @@ jobs:
         with:
           context: ./Phase-3-Expert/backend
           push: true
-          tags: ghcr.io/${{ github.repository }}/phase-3-expert_backend:latest
+          tags: ghcr.io/${{steps.convertrepo2lowercase.outputs.VAR_GH_REPO_LC}}/phase-3-expert_backend:latest
           file: ./Phase-3-Expert/backend/Dockerfile
 
       - name: Start services
