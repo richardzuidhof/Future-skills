@@ -37,20 +37,6 @@ In this phase, you will design a production-like system that includes HTTPS, obs
    - Configure auto-restart for containers in case of failure.
    - Implement load balancing across multiple backend containers using NGINX upstream configuration.
 
-### 🧪 Example Test Commands
-
-- To test the HTTPS setup:
-  ```bash
-  curl -k https://localhost
-  # Expected Output: HTML content from the webserver, with NGINX headers visible
-  ```
-
-- To validate the health endpoint:
-  ```bash
-  curl -i https://localhost/api/health
-  # Expected Output: { status: "ok" }
-  ```
-
 ### 📦 Deliverables
 
 Ensure that all components are properly documented and structured as per the project requirements.
