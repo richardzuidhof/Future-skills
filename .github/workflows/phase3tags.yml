@@ -1,0 +1,51 @@
+name: CI/CD Pipeline - Phase 3 tags
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Triggers the workflow when a tag like v1.0.0, v1.0.1, v2.3.4 is pushed
+
+jobs:
+  build_and_push_backend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Needed for actions/checkout
+      packages: write # Needed to push images to ghcr.io
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract SemVer tag
+        id: extract_tag
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        # This extracts the tag (e.g., 'v1.0.0') from 'refs/tags/v1.0.0'
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Convert repo to lowercase
+        id: convertrepo2lowercase
+        run: INPUT=${{ env.VAR_GH_REPO }}; echo "VAR_GH_REPO_LC=${INPUT,,}">>${GITHUB_OUTPUT}
+
+      - name: Build and Push Docker image web
+        uses: docker/build-push-action@v6
+        with:
+          context: ./Phase-3-Expert/web
+          push: true
+          tags: | # Use multiline tags to push both the SemVer tag and 'latest'
+            ghcr.io/${{ steps.convertrepo2lowercase.outputs.VAR_GH_REPO_LC }}/phase-3-expert_web:${{ steps.extract_tag.outputs.TAG }}
+          file: ./Phase-3-Expert/web/Dockerfile
+
+      - name: Build and Push Docker image backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./Phase-3-Expert/backend
+          push: true
+          tags: | # Use multiline tags to push both the SemVer tag and 'latest'
+            ghcr.io/${{ steps.convertrepo2lowercase.outputs.VAR_GH_REPO_LC }}/phase-3-expert_backend:${{ steps.extract_tag.outputs.TAG }}
+          file: ./Phase-3-Expert/backend/Dockerfile
