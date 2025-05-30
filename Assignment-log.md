@@ -124,3 +124,13 @@ Alpine based backed image was 60 MB smaller than default Python image
 phase-3-expert-backend                          latest             b864ffe0e76d   4 minutes ago   103MB
 <none>                                          <none>             e58e111e61d3   2 weeks ago     161MB
 
+### 3.4
+
+Unit test built into the backend container image
+Nginx test built into the nginx container
+Separate tests to run after the platform has been launched:
+    docker compose --profile tests run --rm test1
+    docker compose --profile tests run --rm test2
+
+### 3.5
+

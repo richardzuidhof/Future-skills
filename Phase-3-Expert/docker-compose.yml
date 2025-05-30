@@ -197,6 +197,20 @@ services:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - ELASTIC_HOSTS=https://es01:9200
 
+  test1:
+    profiles: ["tests"]
+    image: curlimages/curl:latest
+    command: ["sh", "-c", "curl -sk https://nginx | grep -q Phase"]
+    networks:
+      - app-network
+
+  test2:
+    profiles: ["tests"]
+    image: curlimages/curl:latest
+    command: ["sh", "-c", "curl -sk -o /dev/null -w \"%{http_code}\" https://nginx/api/health | grep -q 200"]
+    networks:
+      - app-network
+
 networks:
   default:
     name: elastic

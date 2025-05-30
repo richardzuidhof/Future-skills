@@ -4,8 +4,9 @@ FROM alpine:latest
 RUN apk update && apk add nginx curl
 
 COPY default.conf /etc/nginx/http.d/default.conf
-
 COPY index.html /usr/share/nginx/html/index.html
+
+RUN nginx -t
 
 # Expose port 80 just clarity, not required
 EXPOSE 80

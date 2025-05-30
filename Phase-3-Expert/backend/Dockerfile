@@ -11,6 +11,9 @@ RUN pip3 install --break-system-packages --upgrade pip setuptools
 RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
 COPY app.py .
+COPY test_app.py .
+
+RUN pytest test_app.py
 
 # Expose port 80 just clarity, not required
 EXPOSE 5000
