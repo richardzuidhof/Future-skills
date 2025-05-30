@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*.*.*' # Triggers the workflow when a tag like v1.0.0, v1.0.1, v2.3.4 is pushed
 
+env:
+  VAR_GH_REPO: ${{ github.repository }}
+
 jobs:
   build_and_push_backend:
     runs-on: ubuntu-latest
