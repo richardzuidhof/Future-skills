@@ -23,13 +23,18 @@ services:
       - app-network
     depends_on:
       - backend
+    restart: on-failure
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 3
     networks:
       - app-network
+    restart: on-failure
 
   nginx:
     image: nginx:alpine
@@ -43,6 +48,7 @@ services:
       - app-network
     depends_on:
       - web
+    restart: on-failure
 
   es01:
     depends_on:

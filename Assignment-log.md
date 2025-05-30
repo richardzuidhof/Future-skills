@@ -60,6 +60,8 @@ Time for Phase 2 was 2 hours.
 
 ## Phase 3.
 
+This one took more effort, a whole day. Tried to timebox by keeping it on WSL instead of deploying on a real online server.
+
 ### 3.1
 
 Generated self-signed certs
@@ -134,3 +136,10 @@ Separate tests to run after the platform has been launched:
 
 ### 3.5
 
+Expanded linting since Phase 2. Redeploy on push I would create with a local cron job since I do not have a runner configured or remote access to my WSL. Fixed the tagging and pushing of images to ghcr.io though.
+
+### 3.6
+
+Configured and test auto-restart of backend container by killing the app.py python process.
+
+Added upstream with 3 servers to Nginx and docker compose. Added random keyword to because default round robin kept point to a single instance.

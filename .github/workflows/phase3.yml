@@ -24,20 +24,27 @@ jobs:
           cd Phase-3-Expert
           docker-compose -f docker-compose.yml config
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Docker image web
         uses: docker/build-push-action@v6
         with:
           context: ./Phase-3-Expert/web
-          push: false
-          tags: phase-3-expert_web:latest
+          push: true
+          tags: ghcr.io/${{ github.repository }}/phase-3-expert_web:latest
           file: ./Phase-3-Expert/web/Dockerfile
 
       - name: Build Docker image backend
         uses: docker/build-push-action@v6
         with:
           context: ./Phase-3-Expert/backend
-          push: false
-          tags: phase-3-expert_backend:latest
+          push: true
+          tags: ghcr.io/${{ github.repository }}/phase-3-expert_backend:latest
           file: ./Phase-3-Expert/backend/Dockerfile
 
       - name: Start services
